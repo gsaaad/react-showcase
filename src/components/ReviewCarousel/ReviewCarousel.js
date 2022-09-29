@@ -101,6 +101,7 @@ const ReviewCarousel = () => {
         "They said they had spicy food, it was not spicy. Please go to another restaurant",
     },
   ];
+
   const handleNextImg = (e) => {
     e.preventDefault();
     count = (count + 3) % reviews.length;
@@ -110,7 +111,7 @@ const ReviewCarousel = () => {
     );
     // after 900ms return classNames to normal, allow for sliding pattern
     setTimeout(() => {
-      setSlideIn("grid grid-cols-3  bg-amber-500 p-4 m-4 rounded-xl");
+      setSlideIn("grid grid-cols-3  bg-amber-500 p-4 m-4 rounded-xl ");
     }, 900);
   };
   const handlePrevImg = (e) => {
@@ -150,14 +151,16 @@ const ReviewCarousel = () => {
             </button>
             <div className={slideIn}>
               <div className=" lg:text-2xl">
-                <div className="h-full bg-amber-100 border-4 border-rose-800 rounded-xl mr-2  ">
+                <div className="h-full bg-amber-100 border-4 border-rose-800 rounded-xl mr-2 ">
                   <img
                     className="rounded-xl mx-auto py-2"
                     src={reviews[count].avatar}
                     alt="Avatar"
                   />
                   <h2>{reviews[count].name}</h2>
-                  <p>{reviews[count].stars}</p>
+                  <p className="animated infinite jello">
+                    {reviews[count].stars}
+                  </p>
                   <p>{reviews[count].description}</p>
                 </div>
               </div>
@@ -170,7 +173,9 @@ const ReviewCarousel = () => {
                   />
                   <h2>{reviews[count + 1].name}</h2>
 
-                  <p>{reviews[count + 1].stars}</p>
+                  <p className="animated infinite jello">
+                    {reviews[count + 1].stars}
+                  </p>
                   <p>{reviews[count + 1].description}</p>
                 </div>
               </div>
@@ -183,7 +188,9 @@ const ReviewCarousel = () => {
                   />
                   <h2>{reviews[count + 2].name}</h2>
 
-                  <p>{reviews[count + 2].stars}</p>
+                  <p className="animated infinite jello">
+                    {reviews[count + 2].stars}
+                  </p>
                   <p>{reviews[count + 2].description}</p>
                 </div>
               </div>
