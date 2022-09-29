@@ -1,11 +1,13 @@
 import "./App.css";
+import React from "react";
 import Header from "./components/Header/Header";
-import BgFlipper from "./components/BG_simple-Flipper/BG_Flipper";
+import ComponentsChest from "./components/ComponentsChest/ComponentsChest";
+
 function App() {
   return (
     <div className="App">
       <Header />
-      <BgFlipper />
+      <ComponentsChest />
     </div>
   );
 }
