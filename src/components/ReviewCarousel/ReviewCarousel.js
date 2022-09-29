@@ -6,6 +6,9 @@ const ReviewCarousel = () => {
   const [componentStyle, setComponentStyle] = useState({
     display: "none",
   });
+  const [slideIn, setSlideIn] = useState(
+    "grid grid-cols-3  bg-amber-500 p-4 m-4 rounded-xl"
+  );
   const handleShowComponent = (e) => {
     e.preventDefault();
 
@@ -102,16 +105,30 @@ const ReviewCarousel = () => {
     e.preventDefault();
     count = (count + 3) % reviews.length;
     setCounterValue(count);
+    setSlideIn(
+      "grid grid-cols-3  bg-amber-500 p-4 m-4 rounded-xl animated slideInLeft"
+    );
+    // after 900ms return classNames to normal, allow for sliding pattern
+    setTimeout(() => {
+      setSlideIn("grid grid-cols-3  bg-amber-500 p-4 m-4 rounded-xl");
+    }, 900);
   };
   const handlePrevImg = (e) => {
     e.preventDefault();
 
     if (count - 3 < 0) {
-      count = reviews.length - 1;
+      count = reviews.length - 3;
     } else {
-      count -= 1;
+      count -= 3;
     }
     setCounterValue(count);
+    setSlideIn(
+      "grid grid-cols-3  bg-amber-500 p-4 m-4 rounded-xl animated slideInRight"
+    );
+    // after 900ms return classNames to normal, allow for sliding pattern
+    setTimeout(() => {
+      setSlideIn("grid grid-cols-3  bg-amber-500 p-4 m-4 rounded-xl");
+    }, 900);
   };
   return (
     <div className="bg-amber-800 rounded-xl">
@@ -126,14 +143,14 @@ const ReviewCarousel = () => {
         {
           <div className="flex flex-row ">
             <button
-              className="basis-1/4 bg-red-100 rounded-xl p-4 m-2 md:text-4xl font-semibold"
+              className="basis-1/4 bg-amber-500 border-4 border-rose-800 rounded-xl p-4 m-2 md:text-4xl font-semibold"
               onClick={handlePrevImg}
             >
               Previous
             </button>
-            <div className="grid grid-cols-3  bg-amber-500 p-4 m-4 rounded-xl">
+            <div className={slideIn}>
               <div className=" lg:text-2xl">
-                <div className="h-96 bg-amber-100 rounded-xl mr-2 ">
+                <div className="h-full bg-amber-100 border-4 border-rose-800 rounded-xl mr-2  ">
                   <img
                     className="rounded-xl mx-auto py-2"
                     src={reviews[count].avatar}
@@ -145,7 +162,7 @@ const ReviewCarousel = () => {
                 </div>
               </div>
               <div className=" lg:text-2xl">
-                <div className="h-96 bg-amber-100 rounded-xl mr-2 ">
+                <div className="h-full bg-amber-100 border-4 border-rose-800 rounded-xl mr-2  ">
                   <img
                     className="rounded-xl mx-auto py-2"
                     src={reviews[count + 1].avatar}
@@ -158,7 +175,7 @@ const ReviewCarousel = () => {
                 </div>
               </div>
               <div className=" lg:text-2xl">
-                <div className="h-96 bg-amber-100 rounded-xl mr-2 ">
+                <div className="h-full  bg-amber-100 border-4 border-rose-800 rounded-xl mr-2">
                   <img
                     className="rounded-xl mx-auto py-2"
                     src={reviews[count + 2].avatar}
@@ -173,7 +190,7 @@ const ReviewCarousel = () => {
             </div>
 
             <button
-              className="basis-1/4  bg-red-100 rounded-xl p-4 m-2 md:text-4xl font-semibold"
+              className="basis-1/4  bg-amber-500 border-4 border-rose-800 rounded-xl p-4 m-2 md:text-4xl font-semibold"
               onClick={handleNextImg}
             >
               Next
