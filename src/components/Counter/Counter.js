@@ -45,7 +45,7 @@ const Counter = () => {
           </div>
           <div className="grid grid-cols-1 mx-auto">
             <button
-              className="counter bg-amber-300 px-36"
+              className="counter bg-amber-300 px-36 "
               onClick={handleReset}
             >
               Reset

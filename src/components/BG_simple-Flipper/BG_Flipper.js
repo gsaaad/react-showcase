@@ -197,7 +197,7 @@ const BgFlipper = () => {
             <button className="bg-btn" onClick={handleBgFlip}>
               Click for a New simple Color
             </button>
-            <button className="bg-Hex_btn" onClick={handleHexBgFlip}>
+            <button className="bg-Hex_btn " onClick={handleHexBgFlip}>
               Click for a New Hex Color
             </button>
           </div>
