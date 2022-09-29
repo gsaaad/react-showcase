@@ -23,14 +23,26 @@ const ComponentsChest = () => {
   };
 
   return (
-    <div>
-      <div className="btn-component">
-        <button className="bg-btn" onClick={handleShowComponent}>
-          Display Background Color Flipper Pro+
-        </button>
+    <div className="components-container grid bg-rose-800">
+      <div className="grid grid-rows-1">
+        <div className="btn-component">
+          <button className="bg-btn" onClick={handleShowComponent}>
+            Display Background Color Flipper Pro+
+          </button>
+        </div>
+        <div style={componentStyle}>
+          <BgFlipper />
+        </div>
       </div>
-      <div style={componentStyle}>
-        <BgFlipper />
+      <div>
+        <div className="btn-component">
+          <button className="bg-btn" onClick={handleShowComponent}>
+            Display Counter Pro +
+          </button>
+        </div>
+        <div style={componentStyle}>
+          <BgFlipper />
+        </div>
       </div>
     </div>
   );
