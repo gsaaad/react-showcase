@@ -186,12 +186,12 @@ const BgFlipper = () => {
     backgroundColor: backgroundColor,
   };
   return (
-    <div>
-      <button className="bg-btn" onClick={handleShowComponent}>
+    <div className="bg-amber-800 rounded-xl">
+      <button className="bg-btn " onClick={handleShowComponent}>
         Display Background Color Flipper Pro+
       </button>
       <div style={componentStyle}>
-        <div className="bg-container" style={backgroundStyle}>
+        <div className="bg-container rounded-xl" style={backgroundStyle}>
           <h1 className="bg-title">Color: {backgroundColor}</h1>
           <div className="btn-container">
             <button className="bg-btn" onClick={handleBgFlip}>

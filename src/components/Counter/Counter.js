@@ -28,7 +28,7 @@ const Counter = () => {
     setCounterValue((counterValue = 0));
   };
   return (
-    <div>
+    <div className="bg-amber-800 rounded-xl">
       <button className="bg-btn" onClick={handleShowComponent}>
         Display Counter Pro +
       </button>
@@ -45,7 +45,7 @@ const Counter = () => {
           </div>
           <div className="grid grid-cols-1 mx-auto">
             <button
-              className="counter bg-amber-300 px-36 "
+              className="counter bg-amber-300 px-36 my-8 "
               onClick={handleReset}
             >
               Reset

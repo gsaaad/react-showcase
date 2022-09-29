@@ -8,11 +8,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
+  font-size: 3.5rem;
+  font-weight: 700;
 }
 
 .header-title {
-  font-size: 3rem;
+  font-size: 6rem;
   font-family: "Bungee Spice", cursive;
 }
