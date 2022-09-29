@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import BgFlipper from "../BG_simple-Flipper/BG_Flipper";
 import Counter from "../Counter/Counter";
 import ReviewCarousel from "../ReviewCarousel/ReviewCarousel";
+import FAQ from "../FAQ/FAQ";
 const ComponentsChest = () => {
   return (
     <div className="components-container grid bg-black">
@@ -9,6 +10,7 @@ const ComponentsChest = () => {
         <BgFlipper />
         <Counter />
         <ReviewCarousel />
+        <FAQ />
       </div>
     </div>
   );
