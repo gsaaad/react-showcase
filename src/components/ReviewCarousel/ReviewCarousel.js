@@ -153,7 +153,7 @@ const ReviewCarousel = () => {
               <div className=" lg:text-2xl">
                 <div className="h-full bg-amber-100 border-4 border-rose-800 rounded-xl mr-2 ">
                   <img
-                    className="rounded-xl mx-auto py-2"
+                    className="rounded-xl mx-auto py-2 "
                     src={reviews[count].avatar}
                     alt="Avatar"
                   />
@@ -167,7 +167,7 @@ const ReviewCarousel = () => {
               <div className=" lg:text-2xl">
                 <div className="h-full bg-amber-100 border-4 border-rose-800 rounded-xl mr-2  ">
                   <img
-                    className="rounded-xl mx-auto py-2"
+                    className="rounded-xl mx-auto py-2 "
                     src={reviews[count + 1].avatar}
                     alt="Avatar"
                   />
@@ -182,7 +182,7 @@ const ReviewCarousel = () => {
               <div className=" lg:text-2xl">
                 <div className="h-full  bg-amber-100 border-4 border-rose-800 rounded-xl mr-2">
                   <img
-                    className="rounded-xl mx-auto py-2"
+                    className="rounded-xl mx-auto py-2 "
                     src={reviews[count + 2].avatar}
                     alt="Avatar"
                   />
@@ -203,14 +203,6 @@ const ReviewCarousel = () => {
               Next
             </button>
           </div>
-          /* <div className="w-full select-none relative">
-          <img src={reviews[counterValue].avatar} alt="avatar" />
-
-          <div className="absolute w-full top-1/2 transform -translate-y-1/2 px-3 justify-between items-center">
-            <button onClick={handlePrevImg}>Previous</button>
-            <button onClick={handleNextImg}>Next</button>
-          </div>
-        </div> */
         }
       </div>
     </div>
