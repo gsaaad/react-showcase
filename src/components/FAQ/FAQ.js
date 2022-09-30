@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import SingleQuestion from "../SingleQuestion/SingleQuestion";
 
-const FAQ = () => {
+const Faq = () => {
   const [componentStyle, setComponentStyle] = useState({
     display: "none",
   });
@@ -71,4 +71,4 @@ const FAQ = () => {
   );
 };
 
-export default FAQ;
+export default Faq;

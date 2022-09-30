@@ -2,7 +2,8 @@ import React from "react";
 import BgFlipper from "../BG_simple-Flipper/BG_Flipper";
 import Counter from "../Counter/Counter";
 import ReviewCarousel from "../ReviewCarousel/ReviewCarousel";
-import FAQ from "../FAQ/FAQ";
+import Faq from "../FAQ/FAQ";
+import TicTacToe from "../TicTacToe/TicTacToe";
 const ComponentsChest = () => {
   return (
     <div className="components-container grid bg-black">
@@ -10,7 +11,8 @@ const ComponentsChest = () => {
         <BgFlipper />
         <Counter />
         <ReviewCarousel />
-        <FAQ />
+        <Faq />
+        <TicTacToe />
       </div>
     </div>
   );
