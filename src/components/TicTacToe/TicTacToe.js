@@ -4,12 +4,12 @@ const TicTacToe = () => {
   const [componentStyle, setComponentStyle] = useState({
     display: "none",
   });
-  const [playerOneSymbol, SetPlayerOneSymbol] = useState("");
-  const [playerTwoSymbol, SetPlayerTwoSymbol] = useState("");
-  const [symbolDisplayStyle, SetSymbolDisplayStyle] = useState({
+  const [playerOneSymbol, setPlayerOneSymbol] = useState("");
+  const [playerTwoSymbol, setPlayerTwoSymbol] = useState("");
+  const [symbolDisplayStyle, setSymbolDisplayStyle] = useState({
     display: "none",
   });
-  const [menuDisplayStyle, SetMenuDisplayStyle] = useState({
+  const [menuDisplayStyle, setMenuDisplayStyle] = useState({
     display: "block",
   });
   const displayArray = [
@@ -23,6 +23,7 @@ const TicTacToe = () => {
     { symbol: "" },
     { symbol: "" },
   ];
+  const [playerOneMove, setPlayerOneMove] = useState(true);
   const handleShowComponent = (e) => {
     e.preventDefault();
 
@@ -35,14 +36,14 @@ const TicTacToe = () => {
   const handleSymbolPicker = (e) => {
     e.preventDefault();
     if (e.target.innerHTML === "X") {
-      SetPlayerOneSymbol(e.target.innerHTML);
-      SetPlayerTwoSymbol("O");
+      setPlayerOneSymbol(e.target.innerHTML);
+      setPlayerTwoSymbol("O");
     } else {
-      SetPlayerOneSymbol(e.target.innerHTML);
-      SetPlayerTwoSymbol("X");
+      setPlayerOneSymbol(e.target.innerHTML);
+      setPlayerTwoSymbol("X");
     }
-    SetSymbolDisplayStyle({ display: "block" });
-    SetMenuDisplayStyle({ display: "none" });
+    setSymbolDisplayStyle({ display: "block" });
+    setMenuDisplayStyle({ display: "none" });
   };
 
   const handleSymbol = (e) => {
