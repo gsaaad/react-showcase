@@ -12,7 +12,7 @@ const TicTacToe = () => {
   const [menuDisplayStyle, setMenuDisplayStyle] = useState({
     display: "block",
   });
-  const displayArray = [
+  const [displayArray, setDisplayArray] = useState([
     { symbol: "" },
     { symbol: "" },
     { symbol: "" },
@@ -22,7 +22,7 @@ const TicTacToe = () => {
     { symbol: "" },
     { symbol: "" },
     { symbol: "" },
-  ];
+  ]);
   const [playerOneMove, setPlayerOneMove] = useState(true);
   const handleShowComponent = (e) => {
     e.preventDefault();
@@ -48,8 +48,8 @@ const TicTacToe = () => {
 
   const handleSymbol = (e) => {
     e.preventDefault();
-
-    e.target.innerHTML = "x";
+    const buttonId = e.target.id;
+    setDisplayArray(...(displayArray[0] = "X"));
   };
   return (
     <div className="bg-amber-800 rounded-xl">
