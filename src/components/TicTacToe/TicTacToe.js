@@ -4,7 +4,14 @@ const TicTacToe = () => {
   const [componentStyle, setComponentStyle] = useState({
     display: "none",
   });
-
+  const [playerOneSymbol, SetPlayerOneSymbol] = useState("");
+  const [playerTwoSymbol, SetPlayerTwoSymbol] = useState("");
+  const [symbolDisplayStyle, SetSymbolDisplayStyle] = useState({
+    display: "none",
+  });
+  const [menuDisplayStyle, SetMenuDisplayStyle] = useState({
+    display: "block",
+  });
   const displayArray = [
     { symbol: "" },
     { symbol: "" },
@@ -25,6 +32,18 @@ const TicTacToe = () => {
       setComponentStyle({ display: "none" });
     }
   };
+  const handleSymbolPicker = (e) => {
+    e.preventDefault();
+    if (e.target.innerHTML === "X") {
+      SetPlayerOneSymbol(e.target.innerHTML);
+      SetPlayerTwoSymbol("O");
+    } else {
+      SetPlayerOneSymbol(e.target.innerHTML);
+      SetPlayerTwoSymbol("X");
+    }
+    SetSymbolDisplayStyle({ display: "block" });
+    SetMenuDisplayStyle({ display: "none" });
+  };
 
   const handleSymbol = (e) => {
     e.preventDefault();
@@ -39,25 +58,48 @@ const TicTacToe = () => {
       <div style={componentStyle}>
         <div className="grid grid-cols-2 rounded-xl">
           <div>
-            <h1 className="text-4xl bg-amber-300 font-semibold2  rounded-xl">
+            <h1
+              className="text-4xl bg-amber-300 font-semibold2  rounded-xl"
+              style={menuDisplayStyle}
+            >
               Welcome to Tic Tac Toe~!
             </h1>
-            <p className="text-2xl bg-amber-400 h-1/4 rounded-xl">
+            <p
+              className="text-2xl bg-amber-400 h-1/4 rounded-xl"
+              style={menuDisplayStyle}
+            >
               Player 1: Choose your symbol!
             </p>
-            <button className="text-4xl bg-orange-500 w-1/2 rounded-xl">
+            <p
+              className="text-2xl bg-amber-400 h-1/4 rounded-xl"
+              style={symbolDisplayStyle}
+            >
+              Player 1: Your symbol is: {playerOneSymbol}
+            </p>
+            <button
+              className="text-4xl bg-orange-500 w-1/2 rounded-xl mx-auto"
+              style={menuDisplayStyle}
+              onClick={handleSymbolPicker}
+            >
               X
             </button>
             <br />
-            <button className="text-4xl bg-orange-400 w-1/2 rounded-xl">
+            <button
+              className="text-4xl bg-orange-400 w-1/2 rounded-xl mx-auto"
+              style={menuDisplayStyle}
+              onClick={handleSymbolPicker}
+            >
               O
             </button>
-            <p className="text-2xl bg-amber-400 h-1/4 rounded-xl">
-              Player 2: Your symbol is:{" "}
+            <p
+              className="text-2xl bg-amber-400 h-1/4 rounded-xl"
+              style={symbolDisplayStyle}
+            >
+              Player 2: Your symbol is: {playerTwoSymbol}
             </p>
           </div>
           <div className="grid w-1/2">
-            <div className="grid grid-cols-3 ml-auto">
+            <div className="grid grid-cols-3 ml-auto ml-16">
               {Object.values(displayArray).map((key, value) => {
                 return (
                   <button
