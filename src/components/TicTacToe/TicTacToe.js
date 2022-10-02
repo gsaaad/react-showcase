@@ -41,7 +41,7 @@ const TicTacToe = () => {
       symbol: "",
     },
   ]);
-  const [winner, setWinner] = useState("");
+  const [winner, setWinner] = useState();
 
   const [playerOneMove, setPlayerOneMove] = useState(true);
   const handleShowComponent = (e) => {
@@ -88,6 +88,8 @@ const TicTacToe = () => {
     for (let combo in combos) {
       combos[combo].forEach((pattern) => {
         console.log(pattern);
+        console.log(pattern[0]);
+
         if (
           squares[pattern[0]] === "" ||
           squares[pattern[1]] === "" ||
