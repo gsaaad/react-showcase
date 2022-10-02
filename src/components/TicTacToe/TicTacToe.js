@@ -13,16 +13,35 @@ const TicTacToe = () => {
     display: "block",
   });
   const [displayArray, setDisplayArray] = useState([
-    { symbol: "" },
-    { symbol: "" },
-    { symbol: "" },
-    { symbol: "" },
-    { symbol: "" },
-    { symbol: "" },
-    { symbol: "" },
-    { symbol: "" },
-    { symbol: "" },
+    {
+      symbol: "X",
+    },
+    {
+      symbol: "",
+    },
+    {
+      symbol: "O",
+    },
+    {
+      symbol: "",
+    },
+    {
+      symbol: "",
+    },
+    {
+      symbol: "",
+    },
+    {
+      symbol: "O",
+    },
+    {
+      symbol: "X",
+    },
+    {
+      symbol: "",
+    },
   ]);
+
   const [playerOneMove, setPlayerOneMove] = useState(true);
   const handleShowComponent = (e) => {
     e.preventDefault();
@@ -49,7 +68,10 @@ const TicTacToe = () => {
   const handleSymbol = (e) => {
     e.preventDefault();
     const buttonId = e.target.id;
-    setDisplayArray(...(displayArray[0] = "X"));
+    console.log("clicked on button Id#", buttonId);
+    console.log("this is array", displayArray);
+    displayArray[buttonId] = { symbol: "X" };
+    setDisplayArray(displayArray);
   };
   return (
     <div className="bg-amber-800 rounded-xl">
@@ -100,8 +122,8 @@ const TicTacToe = () => {
             </p>
           </div>
           <div className="grid w-1/2">
-            <div className="grid grid-cols-3 ml-auto ml-16">
-              {Object.values(displayArray).map((key, value) => {
+            <div className="grid grid-cols-3 ml-auto ">
+              {Object.values(displayArray).map((box, value) => {
                 return (
                   <button
                     className=" bg-amber-700 w-32 h-24 p-8 text-amber-200 text-4xl border-2 border-yellow-300"
@@ -109,7 +131,7 @@ const TicTacToe = () => {
                     key={value}
                     id={value}
                   >
-                    {key.symbol}
+                    {box.symbol}
                   </button>
                 );
               })}
