@@ -1,0 +1,19 @@
+/* font-family: 'Bungee Spice', cursive; */
+/* font-family: 'Rock Salt', cursive; */
+/* font-family: 'RocknRoll One', sans-serif; */
+.header {
+  background-color: #282c34;
+  min-height: 35vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 3.5rem;
+  font-weight: 700;
+}
+
+.header-title {
+  font-size: 6rem;
+  font-family: "Bungee Spice", cursive;
+}

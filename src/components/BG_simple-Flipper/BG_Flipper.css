@@ -1,0 +1,32 @@
+.bg-container {
+  background-color: red;
+  min-height: 35vh;
+  border: 5px solid black;
+  border-radius: 10px;
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.bg-title {
+  font-size: 4rem;
+  color: gold;
+}
+.btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.bg-btn,
+.bg-Hex_btn {
+  color: black;
+  font-weight: 800;
+  font-size: 30px;
+  border-radius: 20px;
+  background-color: blanchedalmond;
+  padding: 15px;
+  margin: 10px;
+}

@@ -1,0 +1,9 @@
+.App {
+  text-align: center;
+}
+
+.btn-component {
+  display: flex;
+  justify-content: center;
+  background-color: #444;
+}
