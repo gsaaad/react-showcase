@@ -68,10 +68,9 @@ const TicTacToe = () => {
   const handleSymbol = (e) => {
     e.preventDefault();
     const buttonId = e.target.id;
-    console.log("clicked on button Id#", buttonId);
-    console.log("this is array", displayArray);
-    displayArray[buttonId] = { symbol: "X" };
-    setDisplayArray(displayArray);
+    let squares = [...displayArray];
+    squares[buttonId].symbol = "X";
+    setDisplayArray(squares);
   };
   return (
     <div className="bg-amber-800 rounded-xl">
