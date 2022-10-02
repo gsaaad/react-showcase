@@ -41,6 +41,7 @@ const TicTacToe = () => {
       symbol: "",
     },
   ]);
+  const [winner, setWinner] = useState("");
 
   const [playerOneMove, setPlayerOneMove] = useState(true);
   const handleShowComponent = (e) => {
@@ -64,13 +65,61 @@ const TicTacToe = () => {
     setSymbolDisplayStyle({ display: "block" });
     setMenuDisplayStyle({ display: "none" });
   };
+  const checkForWinner = (squares) => {
+    console.log("winner is ", winner);
+    // a winner is determined by across, down and diagonal
+    let combos = {
+      across: [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+      ],
+      down: [
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+      ],
+      diagonol: [
+        [0, 4, 8],
+        [2, 4, 6],
+      ],
+    };
+
+    for (let combo in combos) {
+      combos[combo].forEach((pattern) => {
+        console.log(pattern);
+        if (
+          squares[pattern[0]] === "" ||
+          squares[pattern[1]] === "" ||
+          squares[pattern[2]] === ""
+        ) {
+          // do nothing
+          console.log("NO WINNER!");
+        } else if (
+          squares[pattern[0] === squares[pattern[1]]] &&
+          squares[pattern[1] === squares[pattern[2]]]
+        ) {
+          setWinner(squares[pattern[0]]);
+        } else {
+          console.log("no winner, check winner function");
+        }
+      });
+    }
+  };
 
   const handleSymbol = (e) => {
     e.preventDefault();
     const buttonId = e.target.id;
     let squares = [...displayArray];
-    squares[buttonId].symbol = "X";
+    if (playerOneMove) {
+      squares[buttonId].symbol = playerOneSymbol;
+    } else {
+      squares[buttonId].symbol = playerTwoSymbol;
+    }
+    setPlayerOneMove(!playerOneMove);
+    console.log(playerOneMove);
     setDisplayArray(squares);
+    checkForWinner(squares);
   };
   return (
     <div className="bg-amber-800 rounded-xl">
@@ -134,6 +183,7 @@ const TicTacToe = () => {
                   </button>
                 );
               })}
+              {winner && <p>The winner is: {winner}</p>}
             </div>
           </div>
         </div>
