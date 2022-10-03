@@ -5,7 +5,7 @@ import ComponentsChest from "./components/ComponentsChest/ComponentsChest";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App ">
       <Header />
       <ComponentsChest />
     </div>
