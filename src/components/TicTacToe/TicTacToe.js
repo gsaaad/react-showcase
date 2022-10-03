@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 const TicTacToe = () => {
+  // todo completed tictactoe, add state to reset game!
   const [componentStyle, setComponentStyle] = useState({
     display: "none",
   });
