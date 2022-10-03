@@ -14,13 +14,7 @@ const TicTacToe = () => {
   });
   const [displayArray, setDisplayArray] = useState([
     {
-      symbol: "X",
-    },
-    {
       symbol: "",
-    },
-    {
-      symbol: "O",
     },
     {
       symbol: "",
@@ -32,15 +26,25 @@ const TicTacToe = () => {
       symbol: "",
     },
     {
-      symbol: "O",
+      symbol: "",
     },
     {
-      symbol: "X",
+      symbol: "",
+    },
+    {
+      symbol: "",
+    },
+    {
+      symbol: "",
     },
     {
       symbol: "",
     },
   ]);
+  const [displayWinner, setDisplayWinner] = useState({
+    display: "none",
+  });
+  const [displayMove, setDisplayMove] = useState({ display: "block" });
   const [winner, setWinner] = useState(false);
 
   const [playerOneMove, setPlayerOneMove] = useState(true);
@@ -66,8 +70,6 @@ const TicTacToe = () => {
     setMenuDisplayStyle({ display: "none" });
   };
   const checkForWinner = (squares) => {
-    console.log("winner is ", winner);
-    // console.log(squares);
     // ! each cell needs to be compared to squares[NUM].symbol
     let combos = {
       across: [
@@ -88,41 +90,21 @@ const TicTacToe = () => {
     Object.values(combos).forEach((categoryCombo) => {
       categoryCombo.forEach((combo) => {
         let combination = combo.join("");
-        console.log("combination: ", combination);
         var playerOneCombo =
           playerOneSymbol + playerOneSymbol + playerOneSymbol;
         var playerTwoCombo =
           playerTwoSymbol + playerTwoSymbol + playerTwoSymbol;
         if (combination === playerOneCombo) {
-          console.log("player one wins: ", playerOneSymbol);
+          setWinner("Player One Wins!");
+          setDisplayMove({ display: "none" });
+          setDisplayWinner({ display: "block" });
         } else if (combination === playerTwoCombo) {
-          console.log("player two wins: ", playerTwoSymbol);
+          setWinner("Player Two Wins!");
+          setDisplayMove({ display: "none" });
+          setDisplayWinner({ display: "block" });
         }
       });
     });
-
-    // for (let combo in combos) {
-    //   combos[combo].forEach((pattern) => {
-    //     console.log(pattern);
-    //     console.log(pattern[0]);
-
-    //     if (
-    //       squares[pattern[0]] === "" ||
-    //       squares[pattern[1]] === "" ||
-    //       squares[pattern[2]] === ""
-    //     ) {
-    //       // do nothing
-    //       console.log("NO WINNER!");
-    //     } else if (
-    //       squares[pattern[0] === squares[pattern[1]]] &&
-    //       squares[pattern[1] === squares[pattern[2]]]
-    //     ) {
-    //       setWinner(squares[pattern[0]]);
-    //     } else {
-    //       console.log("no winner, check winner function");
-    //     }
-    //   });
-    // }
   };
 
   const handleSymbol = (e) => {
@@ -135,7 +117,6 @@ const TicTacToe = () => {
       squares[buttonId].symbol = playerTwoSymbol;
     }
     setPlayerOneMove(!playerOneMove);
-    console.log(playerOneMove);
     setDisplayArray(squares);
     checkForWinner(squares);
   };
@@ -188,15 +169,24 @@ const TicTacToe = () => {
             </p>
           </div>
           <div className="grid w-1/2">
-            {playerOneMove ? (
-              <h2 className="text-3xl font-semibold border-4 border-amber-300 rounded-xl ml-8 p-4 text-white">
-                It's Player One's turn
-              </h2>
-            ) : (
-              <h2 className="text-3xl font-semibold border-4 border-amber-300 rounded-xl ml-8 p-4 text-white">
-                It's Player Two's turn
-              </h2>
-            )}
+            <div style={displayMove}>
+              {playerOneMove ? (
+                <h2 className="text-3xl font-semibold border-4 border-amber-300 rounded-xl ml-8 p-4 text-white">
+                  It's Player One's turn
+                </h2>
+              ) : (
+                <h2 className="text-3xl font-semibold border-4 border-amber-300 rounded-xl ml-8 p-4 text-white">
+                  It's Player Two's turn
+                </h2>
+              )}
+            </div>
+            <div style={displayWinner}>
+              {winner && (
+                <h1 className="text-3xl font-semibold border-4 border-amber-300 rounded-xl ml-8 p-4 text-white">
+                  The winner is: {winner}
+                </h1>
+              )}
+            </div>
             <div className="grid grid-cols-3 m-8 ">
               {Object.values(displayArray).map((box, value) => {
                 return (
@@ -210,8 +200,6 @@ const TicTacToe = () => {
                   </button>
                 );
               })}
-
-              {winner && <p>The winner is: {winner}</p>}
             </div>
           </div>
         </div>
