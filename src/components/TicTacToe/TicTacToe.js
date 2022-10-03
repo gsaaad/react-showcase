@@ -172,11 +172,20 @@ const TicTacToe = () => {
             </p>
           </div>
           <div className="grid w-1/2">
-            <div className="grid grid-cols-3 ml-auto ">
+            {playerOneMove ? (
+              <h2 className="text-3xl font-semibold border-4 border-amber-300 rounded-xl ml-8 p-4 text-white">
+                It's Player One's turn
+              </h2>
+            ) : (
+              <h2 className="text-3xl font-semibold border-4 border-amber-300 rounded-xl ml-8 p-4 text-white">
+                It's Player Two's turn
+              </h2>
+            )}
+            <div className="grid grid-cols-3 m-8 ">
               {Object.values(displayArray).map((box, value) => {
                 return (
                   <button
-                    className=" bg-amber-700 w-32 h-24 p-8 text-amber-200 text-4xl border-2 border-yellow-300"
+                    className=" bg-amber-700 w-32 h-24  text-amber-200 text-4xl border-2 border-yellow-300"
                     onClick={handleSymbol}
                     key={value}
                     id={value}
@@ -185,6 +194,7 @@ const TicTacToe = () => {
                   </button>
                 );
               })}
+
               {winner && <p>The winner is: {winner}</p>}
             </div>
           </div>
