@@ -41,7 +41,7 @@ const TicTacToe = () => {
       symbol: "",
     },
   ]);
-  const [winner, setWinner] = useState();
+  const [winner, setWinner] = useState(false);
 
   const [playerOneMove, setPlayerOneMove] = useState(true);
   const handleShowComponent = (e) => {
@@ -67,46 +67,62 @@ const TicTacToe = () => {
   };
   const checkForWinner = (squares) => {
     console.log("winner is ", winner);
-    // a winner is determined by across, down and diagonal
+    // console.log(squares);
+    // ! each cell needs to be compared to squares[NUM].symbol
     let combos = {
       across: [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
+        [squares[0].symbol, squares[1].symbol, squares[2].symbol],
+        [squares[3].symbol, squares[4].symbol, squares[5].symbol],
+        [squares[6].symbol, squares[7].symbol, squares[8].symbol],
       ],
       down: [
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
+        [squares[0].symbol, squares[3].symbol, squares[6].symbol],
+        [squares[1].symbol, squares[4].symbol, squares[7].symbol],
+        [squares[2].symbol, squares[5].symbol, squares[8].symbol],
       ],
       diagonol: [
-        [0, 4, 8],
-        [2, 4, 6],
+        [squares[0].symbol, squares[4].symbol, squares[8].symbol],
+        [squares[2].symbol, squares[4].symbol, squares[6].symbol],
       ],
     };
-
-    for (let combo in combos) {
-      combos[combo].forEach((pattern) => {
-        console.log(pattern);
-        console.log(pattern[0]);
-
-        if (
-          squares[pattern[0]] === "" ||
-          squares[pattern[1]] === "" ||
-          squares[pattern[2]] === ""
-        ) {
-          // do nothing
-          console.log("NO WINNER!");
-        } else if (
-          squares[pattern[0] === squares[pattern[1]]] &&
-          squares[pattern[1] === squares[pattern[2]]]
-        ) {
-          setWinner(squares[pattern[0]]);
-        } else {
-          console.log("no winner, check winner function");
+    Object.values(combos).forEach((categoryCombo) => {
+      categoryCombo.forEach((combo) => {
+        let combination = combo.join("");
+        console.log("combination: ", combination);
+        var playerOneCombo =
+          playerOneSymbol + playerOneSymbol + playerOneSymbol;
+        var playerTwoCombo =
+          playerTwoSymbol + playerTwoSymbol + playerTwoSymbol;
+        if (combination === playerOneCombo) {
+          console.log("player one wins: ", playerOneSymbol);
+        } else if (combination === playerTwoCombo) {
+          console.log("player two wins: ", playerTwoSymbol);
         }
       });
-    }
+    });
+
+    // for (let combo in combos) {
+    //   combos[combo].forEach((pattern) => {
+    //     console.log(pattern);
+    //     console.log(pattern[0]);
+
+    //     if (
+    //       squares[pattern[0]] === "" ||
+    //       squares[pattern[1]] === "" ||
+    //       squares[pattern[2]] === ""
+    //     ) {
+    //       // do nothing
+    //       console.log("NO WINNER!");
+    //     } else if (
+    //       squares[pattern[0] === squares[pattern[1]]] &&
+    //       squares[pattern[1] === squares[pattern[2]]]
+    //     ) {
+    //       setWinner(squares[pattern[0]]);
+    //     } else {
+    //       console.log("no winner, check winner function");
+    //     }
+    //   });
+    // }
   };
 
   const handleSymbol = (e) => {
