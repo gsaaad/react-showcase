@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 
 const TicTacToe = () => {
   // todo completed tictactoe, add state to reset game!
@@ -95,11 +97,11 @@ const TicTacToe = () => {
           playerOneSymbol + playerOneSymbol + playerOneSymbol;
         var playerTwoCombo =
           playerTwoSymbol + playerTwoSymbol + playerTwoSymbol;
-        if (combination === playerOneCombo) {
+        if (combination === playerOneCombo && playerOneCombo !== "") {
           setWinner("Player One Wins!");
           setDisplayMove({ display: "none" });
           setDisplayWinner({ display: "block" });
-        } else if (combination === playerTwoCombo) {
+        } else if (combination === playerTwoCombo && playerTwoCombo !== "") {
           setWinner("Player Two Wins!");
           setDisplayMove({ display: "none" });
           setDisplayWinner({ display: "block" });
@@ -112,14 +114,16 @@ const TicTacToe = () => {
     e.preventDefault();
     const buttonId = e.target.id;
     let squares = [...displayArray];
-    if (playerOneMove) {
-      squares[buttonId].symbol = playerOneSymbol;
-    } else {
-      squares[buttonId].symbol = playerTwoSymbol;
+    if (!winner) {
+      if (playerOneMove) {
+        squares[buttonId].symbol = playerOneSymbol;
+      } else {
+        squares[buttonId].symbol = playerTwoSymbol;
+      }
+      setPlayerOneMove(!playerOneMove);
+      setDisplayArray(squares);
+      checkForWinner(squares);
     }
-    setPlayerOneMove(!playerOneMove);
-    setDisplayArray(squares);
-    checkForWinner(squares);
   };
   return (
     <div className="bg-amber-800 rounded-xl">
@@ -127,28 +131,28 @@ const TicTacToe = () => {
         Display TicTacToe
       </button>
       <div style={componentStyle}>
-        <div className="grid grid-cols-2 rounded-xl">
+        <div className="grid grid-rows-2 rounded-xl p-2">
           <div>
             <h1
-              className="text-4xl bg-amber-300 font-semibold2  rounded-xl"
+              className="text-4xl bg-amber-300 font-semibold rounded-xl"
               style={menuDisplayStyle}
             >
               Welcome to Tic Tac Toe~!
             </h1>
             <p
-              className="text-2xl bg-amber-400 h-1/4 rounded-xl"
+              className="text-2xl bg-amber-400 h-min rounded-xl m-2 p-2 text-rose-600 font-semibold"
               style={menuDisplayStyle}
             >
               Player 1: Choose your symbol!
             </p>
             <p
-              className="text-2xl bg-amber-400 h-1/4 rounded-xl"
+              className="text-2xl bg-amber-400 h-min rounded-xl m-2 p-2 text-rose-600 font-semibold"
               style={symbolDisplayStyle}
             >
               Player 1: Your symbol is: {playerOneSymbol}
             </p>
             <button
-              className="text-4xl bg-orange-500 w-1/2 rounded-xl mx-auto"
+              className="text-4xl bg-orange-400 w-1/2 rounded-xl mx-auto"
               style={menuDisplayStyle}
               onClick={handleSymbolPicker}
             >
@@ -163,36 +167,43 @@ const TicTacToe = () => {
               O
             </button>
             <p
-              className="text-2xl bg-amber-400 h-1/4 rounded-xl"
+              className="text-2xl bg-amber-400 h-min rounded-xl m-2 p-2 text-rose-600 font-semibold"
               style={symbolDisplayStyle}
             >
               Player 2: Your symbol is: {playerTwoSymbol}
             </p>
+            <div className="animate-pulse">
+              <FontAwesomeIcon
+                icon={faArrowDown}
+                className="animate-bounce"
+                style={{ fontSize: "200px", marginTop: "95px", color: "white" }}
+              />
+            </div>
           </div>
-          <div className="grid w-1/2">
+          <div className="grid w-4/5 mx-auto">
             <div style={displayMove}>
               {playerOneMove ? (
-                <h2 className="text-3xl font-semibold border-4 border-amber-300 rounded-xl ml-8 p-4 text-white">
+                <h2 className="text-3xl font-semibold border-4 border-amber-300 rounded-xl  p-4 text-white w-full ">
                   It's Player One's turn
                 </h2>
               ) : (
-                <h2 className="text-3xl font-semibold border-4 border-amber-300 rounded-xl ml-8 p-4 text-white">
+                <h2 className="text-3xl font-semibold border-4 border-amber-300 rounded-xl  p-4 text-white w-full ">
                   It's Player Two's turn
                 </h2>
               )}
             </div>
             <div style={displayWinner}>
               {winner && (
-                <h1 className="text-3xl font-semibold border-4 border-amber-300 rounded-xl ml-8 p-4 text-white">
-                  The winner is: {winner}
+                <h1 className="text-5xl font-bold border-8 border-amber-300 rounded-xl  p-4 text-white w-full bg-orange-400 drop-shadow-[0_0_50px_rgba(255,255,255,1)]">
+                  {winner}
                 </h1>
               )}
             </div>
-            <div className="grid grid-cols-3 m-8 ">
+            <div className="grid grid-cols-3 w-full p-4 border-2 border-rose-500 my-2 rounded-lg">
               {Object.values(displayArray).map((box, value) => {
                 return (
                   <button
-                    className=" bg-amber-700 w-32 h-24  text-amber-200 text-4xl border-2 border-yellow-300"
+                    className=" bg-amber-700 h-36 text-amber-200  border-2 border-yellow-300 rounded-lg text-4xl font-bold active:bg-amber-300"
                     onClick={handleSymbol}
                     key={value}
                     id={value}
