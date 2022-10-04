@@ -1,6 +1,41 @@
 import React, { useState } from "react";
-
+import axios from "axios";
 const FlightAway = () => {
+  async function getHomeFlights() {
+    // console.log(
+    //   typeof process.env.REACT_APP_HOST,
+    //   typeof process.env.REACT_APP_KEY
+    // );
+    const options = {
+      method: "GET",
+      url: "https://skyscanner50.p.rapidapi.com/api/v1/searchFlightEverywhereDetails",
+      params: {
+        origin: "YYZ",
+        CountryId: "CA",
+        anytime: "true",
+        oneWay: "false",
+        currency: "CAD",
+        countryCode: "CA",
+        market: "en-US",
+      },
+      headers: {
+        "X-RapidAPI-Key": process.env.REACT_APP_KEY,
+        "X-RapidAPI-Host": process.env.REACT_APP_HOST,
+      },
+    };
+    console.log(options);
+    try {
+      const response = await axios.request(options).then(function (response) {
+        console.log(response.data);
+      });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  console.log("RUN GET CAD FLIGHTS");
+  getHomeFlights();
+
   const [componentStyle, setComponentStyle] = useState({
     display: "none",
   });
@@ -19,18 +54,25 @@ const FlightAway = () => {
         Display FlightAway
       </button>
       <div style={componentStyle}>
-        <div>
-          <div>
-            <form>
-              <label>Option 1 Label </label>
-              <input type="radio" />
-              <label>Option 1 Label </label>
-              <input type="radio" />
-              <label>Option 1 Label </label>
-              <input type="radio" />
-            </form>
+        <div className="grid">
+          <div className="grid grid-cols-2 ">
+            <button className="bg-gradient-to-r from-violet-600 to-sky-400 rounded-lg w-max p-2 mx-auto text-white font-semibold">
+              CAD Flights
+            </button>
+            <button className="bg-gradient-to-r from-red-600 to-yellow-400 rounded-lg w-max p-2 mx-auto text-white font-semibold">
+              USA Flights
+            </button>
+
             <div>
-              <h2>✈️Loading flights... ✈️</h2>
+              <h2 className="text-amber-400 text-md">
+                ✈️Loading flights... ✈️
+              </h2>
+              <div>[flights]</div>
+            </div>
+            <div>
+              <h2 className="text-amber-400 text-md">
+                ✈️Loading flights... ✈️
+              </h2>
               <div>[flights]</div>
             </div>
           </div>
