@@ -1,3 +1,7 @@
+:root {
+  background: linear-gradient(#f0be2e, #e8580d, #c1410c);
+}
+
 .App {
   text-align: center;
 }

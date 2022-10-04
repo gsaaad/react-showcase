@@ -2,15 +2,17 @@ import React from "react";
 import BgFlipper from "../BG_simple-Flipper/BG_Flipper";
 import Counter from "../Counter/Counter";
 import ReviewCarousel from "../ReviewCarousel/ReviewCarousel";
-import FAQ from "../FAQ/FAQ";
+import Faq from "../FAQ/FAQ";
+import TicTacToe from "../TicTacToe/TicTacToe";
 const ComponentsChest = () => {
   return (
-    <div className="components-container grid bg-black">
-      <div className="grid grid-rows-1 space-y-2">
+    <div className="components-container grid bg-black p-4 rounded-l">
+      <div className="grid grid-rows-1 space-y-2 m-2">
         <BgFlipper />
         <Counter />
         <ReviewCarousel />
-        <FAQ />
+        <Faq />
+        <TicTacToe />
       </div>
     </div>
   );

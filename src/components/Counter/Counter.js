@@ -5,7 +5,7 @@ const Counter = () => {
     display: "none",
     backgroundColor: "black",
   });
-  let [counterValue, setCounterValue] = useState(0);
+  let [counterValue, setCounterValue] = useState(-1000);
   const handleShowComponent = (e) => {
     e.preventDefault();
 
@@ -34,18 +34,26 @@ const Counter = () => {
       </button>
       <div style={componentStyle}>
         <div className="grid grid-cols-1 bg-amber-600 ">
-          <div className="grid grid-cols-3 p-8 bg-amber-700 space-x-3">
-            <button className="counter bg-amber-300" onClick={handleMinus}>
+          <div className="flex flex-row p-4 bg-amber-700 space-x-3">
+            <button
+              className="counter basis-1/4 bg-amber-300"
+              onClick={handleMinus}
+            >
               -
             </button>
-            <h1 className="counter bg-amber-500">{counterValue}</h1>
-            <button className="counter bg-amber-300" onClick={handlePlus}>
+            <h1 className="counter basis-1/2 bg-amber-500 min-w-max">
+              {counterValue}
+            </h1>
+            <button
+              className="counter basis-1/4 bg-amber-300 "
+              onClick={handlePlus}
+            >
               +
             </button>
           </div>
-          <div className="grid grid-cols-1 mx-auto">
+          <div className="grid grid-cols-1 m-4">
             <button
-              className="counter bg-amber-300 px-36 my-8 "
+              className="counter bg-amber-300 px-auto my-8 "
               onClick={handleReset}
             >
               Reset

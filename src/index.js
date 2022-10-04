@@ -6,6 +6,8 @@ import App from "./App";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <div className="bg-gradient-to-b from-amber-400 to-orange-700 rounded-xl">
+      <App />
+    </div>
   </React.StrictMode>
 );

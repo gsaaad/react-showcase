@@ -192,7 +192,9 @@ const BgFlipper = () => {
       </button>
       <div style={componentStyle}>
         <div className="bg-container rounded-xl" style={backgroundStyle}>
-          <h1 className="bg-title">Color: {backgroundColor}</h1>
+          <h1 className="bg-title text-3xl sm:text-4xl lg:text-5xl font-semibold">
+            Color: {backgroundColor}
+          </h1>
           <div className="btn-container">
             <button className="bg-btn" onClick={handleBgFlip}>
               Click for a New simple Color
