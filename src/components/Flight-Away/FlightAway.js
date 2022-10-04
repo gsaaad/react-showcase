@@ -37,11 +37,13 @@ const FlightAway = () => {
     //   console.error(error);
     // }
   }
-  console.log("RUN GET CAD FLIGHTS");
+
   getHomeFlights();
   const date = new Date();
-  const daysLeft = date;
-  console.log(daysLeft);
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  const dateToday = `${month}/${day}/${year}`;
 
   const [componentStyle, setComponentStyle] = useState({
     display: "none",
@@ -57,7 +59,7 @@ const FlightAway = () => {
   };
 
   const limitFlights = FLIGHTS.length > 15 ? FLIGHTS.slice(0, 15) : FLIGHTS;
-  console.log(limitFlights);
+
   return (
     <div className="bg-amber-800 rounded-xl">
       <button className="bg-btn" onClick={handleShowComponent}>
@@ -70,6 +72,16 @@ const FlightAway = () => {
               CAD Flights
             </button>
             {limitFlights.map((flight) => {
+              const flightDateArray = flight.outboundDepartureDate.split("-");
+              const flightDay = flightDateArray[2];
+              const flightMonth = flightDateArray[1];
+              const flightYear = flightDateArray[0];
+              const flightDate = `${flightMonth}/${flightDay}/${flightYear}`;
+              const dateOne = new Date(flightDate);
+              const dateTwo = new Date(dateToday);
+              const diff = dateOne.getTime() - dateTwo.getTime();
+              const daysLeft = Math.floor(diff / (1000 * 60 * 60 * 24));
+
               return (
                 <div
                   className="border-b-2 border-sky-300 w-5/6 mx-auto rounded bg-slate-200"
@@ -84,16 +96,35 @@ const FlightAway = () => {
             <button className="bg-gradient-to-r from-red-600 to-yellow-400 rounded-lg w-max p-2 mx-auto text-white font-semibold my-2 border-b-2 border-amber-400">
               USA Flights
             </button>
+            <div className="flex text-amber-400 ">
+              <p className="basis-1/4 mx-2">Cost</p>
+              <p className="basis-1/4 mx-2">Departure Date</p>
+              <p className="basis-1/4 mx-2">Destination</p>
+              <p className="basis-1/4 mx-2">Days Left</p>
+            </div>
             {limitFlights.map((flight) => {
+              const flightDateArray = flight.outboundDepartureDate.split("-");
+              const flightDay = flightDateArray[2];
+              const flightMonth = flightDateArray[1];
+              const flightYear = flightDateArray[0];
+              const flightDate = `${flightMonth}/${flightDay}/${flightYear}`;
+              const dateOne = new Date(flightDate);
+              const dateTwo = new Date(dateToday);
+              const diff = dateOne.getTime() - dateTwo.getTime();
+              const daysLeft = Math.floor(diff / (1000 * 60 * 60 * 24));
+
               return (
-                <div className="border-b-2 border-amber-300 w-5/6 mx-auto rounded bg-slate-200">
-                  <p className="flex">
-                    <span className="basis-1/5">${flight.price}</span>
-                    <span className="basis-1/5">
+                <div
+                  className="border-b-2 border-amber-300 w-5/6 mx-auto rounded bg-slate-200"
+                  key={flight.title}
+                >
+                  <p className="flex w-full">
+                    <span className="basis-1/4 mx-auto">${flight.price}</span>
+                    <span className="basis-1/4 mx-auto">
                       {flight.outboundDepartureDate}
                     </span>
-
-                    <span className="basis-1/5">{flight.title}</span>
+                    <span className="basis-1/4 mx-auto">{flight.title}</span>
+                    <span className="basis-1/4 mx-auto">{daysLeft}</span>
                   </p>
                 </div>
               );
