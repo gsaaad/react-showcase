@@ -6,8 +6,8 @@ import Faq from "../FAQ/FAQ";
 import TicTacToe from "../TicTacToe/TicTacToe";
 const ComponentsChest = () => {
   return (
-    <div className="components-container grid bg-black p-4">
-      <div className="grid grid-rows-1 space-y-2">
+    <div className="components-container grid bg-black p-4 rounded-l">
+      <div className="grid grid-rows-1 space-y-2 m-2">
         <BgFlipper />
         <Counter />
         <ReviewCarousel />
