@@ -116,6 +116,7 @@ const ReviewCarousel = () => {
 
   const handleNextImg = (e) => {
     e.preventDefault();
+
     if (screenSize) {
       count = (count + 1) % reviews.length;
       setCounterValue(count);
@@ -142,143 +143,151 @@ const ReviewCarousel = () => {
   const handlePrevImg = (e) => {
     e.preventDefault();
     if (screenSize) {
-      if (count - 1 < 0) {
+      console.log(count, "minus 1", count - 1);
+      if (count - 1 <= 0) {
         count = reviews.length - 1;
       } else {
         count -= 1;
       }
+      console.log(count, "this is count setting");
 
       setCounterValue(count);
-      setSlideIn(" bg-amber-500 p-4 m-4 rounded-xl animated slideInRight");
+      setSlideIn(" bg-amber-500 p-4 m-4 rounded-xl animated slideInRight ");
       // after 900ms return classNames to normal, allow for sliding pattern
       setTimeout(() => {
-        setSlideIn(" bg-amber-500 p-4 m-4 rounded-xl");
+        setSlideIn(
+          "bg-amber-500 p-4 m-4 rounded-xl drop-shadow-[0_10px_10px_rgba(10,10,10,1)] hover:drop-shadow-[0_10px_10px_rgba(255,255,255,1)]"
+        );
       }, 900);
     } else if (count - 3 < 0) {
       count = reviews.length - 3;
+      console.log("triggered");
     } else {
       count -= 3;
+      console.log("triggered");
     }
     setCounterValue(count);
-    setSlideIn(
-      "grid grid-cols-3  bg-amber-500 p-4 m-4 rounded-xl animated slideInRight"
-    );
+    setSlideIn(" bg-amber-500 p-4 m-4 rounded-xl animated slideInRight ");
     // after 900ms return classNames to normal, allow for sliding pattern
     setTimeout(() => {
-      setSlideIn("grid grid-cols-3  bg-amber-500 p-4 m-4 rounded-xl");
+      setSlideIn(
+        "bg-amber-500 p-4 m-4 rounded-xl drop-shadow-[0_10px_10px_rgba(10,10,10,1)] hover:drop-shadow-[0_10px_10px_rgba(255,255,255,1)]"
+      );
     }, 900);
   };
   return (
-    <div className="bg-amber-800 rounded-xl">
+    <div className="bg-amber-800 rounded-xl p-2">
       <button className="bg-btn" onClick={handleShowComponent}>
         Display Review Casousel
       </button>
 
       <div
         style={componentStyle}
-        className="grid grid-rows-1 bg-amber-400 rounded-xl"
+        className="grid grid-rows-1 bg-amber-400 rounded-xl "
       >
-        {
-          <div className="flex flex-row ">
-            <button
-              className="h-32 my-auto bg-amber-500 border-4 border-rose-800 rounded-xl p-4 m-2 md:text-4xl font-med sm:text-xl "
-              onClick={handlePrevImg}
-            >
-              Prev
-            </button>
+        <div className="my-auto">
+          {
+            <div className="flex">
+              <button
+                className="h-24  my-auto ml-2 bg-amber-500 border-4 border-rose-800 rounded-xl text-md md:text-4xl font-med sm:text-xl "
+                onClick={handlePrevImg}
+              >
+                Prev
+              </button>
 
-            {screenWidth < 1279 ? (
-              <div className={slideIn}>
-                <div>
-                  <div className="bg-amber-100 border-4 border-rose-800 rounded-xl ">
-                    <img
-                      className="rounded-xl mx-auto py-2 drop-shadow-[0_10px_10px_rgba(10,10,10,0.35)] "
-                      src={reviews[count].avatar}
-                      alt="Avatar"
-                    />
-                    <h2 className="text-rose-600 font-semibold text-2xl lg:text-3xl">
-                      {reviews[count].name}
-                    </h2>
-                    <p className="animated infinite jello">
-                      {reviews[count].stars}
-                    </p>
-                    <p className="text-rose-400 font-medium text-lg p-2 md:text-xl lg:text-2xl">
-                      {reviews[count].description}
-                    </p>
+              {screenWidth < 1279 ? (
+                <div className={slideIn}>
+                  <div>
+                    <div className="bg-amber-100 border-4 border-rose-800 rounded-xl ">
+                      <img
+                        className="rounded-xl mx-auto py-2 drop-shadow-[0_10px_10px_rgba(10,10,10,0.35)] "
+                        src={reviews[count].avatar}
+                        alt="Avatar"
+                      />
+                      <h2 className="text-rose-600 font-semibold text-2xl lg:text-3xl">
+                        {reviews[count].name}
+                      </h2>
+                      <p className="animated infinite jello">
+                        {reviews[count].stars}
+                      </p>
+                      <p className="text-rose-400 font-medium text-sm p-2 md:text-xl lg:text-2xl">
+                        {reviews[count].description}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ) : (
-              <div className={`grid grid-cols-3 ${slideIn} `}>
-                <div className=" lg:text-2xl">
-                  <div className="h-full bg-amber-100 border-4 border-rose-800 rounded-xl mr-2 ">
-                    <img
-                      className="rounded-xl mx-auto py-2 "
-                      src={reviews[count].avatar}
-                      alt="Avatar"
-                    />
-                    <h2 className="text-rose-600 font-semibold text-2xl lg:text-3xl">
-                      {reviews[count].name}
-                    </h2>
-                    <p className="animated infinite jello">
-                      {reviews[count].stars}
-                    </p>
-                    <p className="text-rose-400 font-medium text-lg p-2 md:text-xl lg:text-2xl">
-                      {reviews[count].description}
-                    </p>
+              ) : (
+                <div className={`grid grid-cols-3 ${slideIn} `}>
+                  <div className=" lg:text-2xl">
+                    <div className="h-full bg-amber-100 border-4 border-rose-800 rounded-xl mr-2 ">
+                      <img
+                        className="rounded-xl mx-auto py-2 "
+                        src={reviews[count].avatar}
+                        alt="Avatar"
+                      />
+                      <h2 className="text-rose-600 font-semibold text-2xl lg:text-3xl">
+                        {reviews[count].name}
+                      </h2>
+                      <p className="animated infinite jello">
+                        {reviews[count].stars}
+                      </p>
+                      <p className="text-rose-400 font-medium text-lg p-2 md:text-xl lg:text-2xl">
+                        {reviews[count].description}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className=" lg:text-2xl">
+                    <div className="h-full bg-amber-100 border-4 border-rose-800 rounded-xl mr-2  ">
+                      <img
+                        className="rounded-xl mx-auto py-2 "
+                        src={reviews[count + 1].avatar}
+                        alt="Avatar"
+                      />
+                      <h2 className="text-rose-600 font-semibold text-2xl lg:text-3xl">
+                        {reviews[count + 1].name}
+                      </h2>
+
+                      <p className="animated infinite jello">
+                        {reviews[count + 1].stars}
+                      </p>
+                      <p className="text-rose-400 font-medium text-lg p-2 md:text-xl lg:text-2xl">
+                        {reviews[count + 1].description}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className=" lg:text-2xl">
+                    <div className="h-full  bg-amber-100 border-4 border-rose-800 rounded-xl mr-2">
+                      <img
+                        className="rounded-xl mx-auto py-2 "
+                        src={reviews[count + 2].avatar}
+                        alt="Avatar"
+                      />
+                      <h2 className="text-rose-600 font-semibold text-2xl lg:text-3xl">
+                        {reviews[count + 2].name}
+                      </h2>
+
+                      <p className="animated infinite jello">
+                        {reviews[count + 2].stars}
+                      </p>
+                      <p className="text-rose-400 font-medium text-lg p-2 md:text-xl lg:text-2xl">
+                        {reviews[count + 2].description}
+                      </p>
+                    </div>
                   </div>
                 </div>
+              )}
 
-                <div className=" lg:text-2xl">
-                  <div className="h-full bg-amber-100 border-4 border-rose-800 rounded-xl mr-2  ">
-                    <img
-                      className="rounded-xl mx-auto py-2 "
-                      src={reviews[count + 1].avatar}
-                      alt="Avatar"
-                    />
-                    <h2 className="text-rose-600 font-semibold text-2xl lg:text-3xl">
-                      {reviews[count + 1].name}
-                    </h2>
-
-                    <p className="animated infinite jello">
-                      {reviews[count + 1].stars}
-                    </p>
-                    <p className="text-rose-400 font-medium text-lg p-2 md:text-xl lg:text-2xl">
-                      {reviews[count + 1].description}
-                    </p>
-                  </div>
-                </div>
-
-                <div className=" lg:text-2xl">
-                  <div className="h-full  bg-amber-100 border-4 border-rose-800 rounded-xl mr-2">
-                    <img
-                      className="rounded-xl mx-auto py-2 "
-                      src={reviews[count + 2].avatar}
-                      alt="Avatar"
-                    />
-                    <h2 className="text-rose-600 font-semibold text-2xl lg:text-3xl">
-                      {reviews[count + 2].name}
-                    </h2>
-
-                    <p className="animated infinite jello">
-                      {reviews[count + 2].stars}
-                    </p>
-                    <p className="text-rose-400 font-medium text-lg p-2 md:text-xl lg:text-2xl">
-                      {reviews[count + 2].description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <button
-              className="h-32 my-auto bg-amber-500 border-4 border-rose-800 rounded-xl p-4 m-2 md:text-4xl font-med sm:text-xl "
-              onClick={handleNextImg}
-            >
-              Next
-            </button>
-          </div>
-        }
+              <button
+                className="h-24  my-auto mr-2 bg-amber-500 border-4 border-rose-800 rounded-xl text-md md:text-4xl font-med sm:text-xl "
+                onClick={handleNextImg}
+              >
+                Next
+              </button>
+            </div>
+          }
+        </div>
       </div>
     </div>
   );

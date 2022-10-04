@@ -192,14 +192,20 @@ const BgFlipper = () => {
       </button>
       <div style={componentStyle}>
         <div className="bg-container rounded-xl" style={backgroundStyle}>
-          <h1 className="bg-title text-3xl sm:text-4xl lg:text-5xl font-semibold">
+          <h1 className="bg-title text-2xl sm:text-4xl lg:text-5xl font-bold">
             Color: {backgroundColor}
           </h1>
           <div className="btn-container">
-            <button className="bg-btn" onClick={handleBgFlip}>
+            <button
+              className="bg-yellow-400 rounded-lg text-md m-2 border-2 border-amber-800"
+              onClick={handleBgFlip}
+            >
               Click for a New simple Color
             </button>
-            <button className="bg-Hex_btn " onClick={handleHexBgFlip}>
+            <button
+              className="bg-yellow-400 rounded-lg text-md m-2 border-2 border-amber-800"
+              onClick={handleHexBgFlip}
+            >
               Click for a New Hex Color
             </button>
           </div>
