@@ -7,7 +7,7 @@ const FlightAway = () => {
     //   typeof process.env.REACT_APP_HOST,
     //   typeof process.env.REACT_APP_KEY
     // );
-    console.log(FLIGHTS);
+
     const options = {
       method: "GET",
       url: "https://skyscanner50.p.rapidapi.com/api/v1/searchFlightEverywhereDetails",
@@ -25,7 +25,7 @@ const FlightAway = () => {
         "X-RapidAPI-Host": process.env.REACT_APP_HOST,
       },
     };
-    console.log(options);
+    // console.log(options);
     // !gets all flights in canada
     // todo retrieve the price, destination name, airport, direct means one way or not, and departureDate
     // try {
@@ -39,6 +39,9 @@ const FlightAway = () => {
   }
   console.log("RUN GET CAD FLIGHTS");
   getHomeFlights();
+  const date = new Date();
+  const daysLeft = date;
+  console.log(daysLeft);
 
   const [componentStyle, setComponentStyle] = useState({
     display: "none",
@@ -52,6 +55,9 @@ const FlightAway = () => {
       setComponentStyle({ display: "none" });
     }
   };
+
+  const limitFlights = FLIGHTS.length > 15 ? FLIGHTS.slice(0, 15) : FLIGHTS;
+  console.log(limitFlights);
   return (
     <div className="bg-amber-800 rounded-xl">
       <button className="bg-btn" onClick={handleShowComponent}>
@@ -59,26 +65,39 @@ const FlightAway = () => {
       </button>
       <div style={componentStyle}>
         <div className="grid">
-          <div className="grid grid-cols-2 ">
-            <button className="bg-gradient-to-r from-violet-600 to-sky-400 rounded-lg w-max p-2 mx-auto text-white font-semibold">
+          <div className="grid grid-cols-1 border-2 border-sky-400 w-5/6 mx-auto rounded-lg  my-4 p-2">
+            <button className="bg-gradient-to-r from-violet-600 to-sky-400 rounded-lg w-max p-2 mx-auto text-white font-semibold my-2 border-b-2 border-sky-400">
               CAD Flights
             </button>
-            <button className="bg-gradient-to-r from-red-600 to-yellow-400 rounded-lg w-max p-2 mx-auto text-white font-semibold">
+            {limitFlights.map((flight) => {
+              return (
+                <div
+                  className="border-b-2 border-sky-300 w-5/6 mx-auto rounded bg-slate-200"
+                  key={flight.title}
+                >
+                  FLIGHT
+                </div>
+              );
+            })}
+          </div>
+          <div className="grid grid-cols-1 border-2 border-amber-300 w-5/6 mx-auto rounded-lg ">
+            <button className="bg-gradient-to-r from-red-600 to-yellow-400 rounded-lg w-max p-2 mx-auto text-white font-semibold my-2 border-b-2 border-amber-400">
               USA Flights
             </button>
+            {limitFlights.map((flight) => {
+              return (
+                <div className="border-b-2 border-amber-300 w-5/6 mx-auto rounded bg-slate-200">
+                  <p className="flex">
+                    <span className="basis-1/5">${flight.price}</span>
+                    <span className="basis-1/5">
+                      {flight.outboundDepartureDate}
+                    </span>
 
-            <div>
-              <h2 className="text-amber-400 text-md">
-                ✈️Loading flights... ✈️
-              </h2>
-              <div>[flights]</div>
-            </div>
-            <div>
-              <h2 className="text-amber-400 text-md">
-                ✈️Loading flights... ✈️
-              </h2>
-              <div>[flights]</div>
-            </div>
+                    <span className="basis-1/5">{flight.title}</span>
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
