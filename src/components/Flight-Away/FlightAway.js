@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
+import FLIGHTS from "../../data.json";
 const FlightAway = () => {
   async function getHomeFlights() {
     // console.log(
     //   typeof process.env.REACT_APP_HOST,
     //   typeof process.env.REACT_APP_KEY
     // );
+    console.log(FLIGHTS);
     const options = {
       method: "GET",
       url: "https://skyscanner50.p.rapidapi.com/api/v1/searchFlightEverywhereDetails",
@@ -24,14 +26,16 @@ const FlightAway = () => {
       },
     };
     console.log(options);
-    try {
-      const response = await axios.request(options).then(function (response) {
-        console.log(response.data);
-      });
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
+    // !gets all flights in canada
+    // todo retrieve the price, destination name, airport, direct means one way or not, and departureDate
+    // try {
+    //   const response = await axios.request(options).then(function (response) {
+    //     console.log(response.data);
+    //   });
+    //   console.log(response);
+    // } catch (error) {
+    //   console.error(error);
+    // }
   }
   console.log("RUN GET CAD FLIGHTS");
   getHomeFlights();
