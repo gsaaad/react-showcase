@@ -5,7 +5,7 @@ import ComponentsChest from "./components/ComponentsChest/ComponentsChest";
 
 function App() {
   return (
-    <div className="App sm:m-2 rounded-xl">
+    <div className="App m-2 rounded-xl">
       <Header />
       <ComponentsChest />
     </div>
