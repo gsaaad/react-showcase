@@ -209,7 +209,7 @@ const ReviewCarousel = () => {
                 </div>
               </div>
             ) : (
-              <div className={`${slideIn} grid grid-cols-3`}>
+              <div className={`grid grid-cols-3 ${slideIn} `}>
                 <div className=" lg:text-2xl">
                   <div className="h-full bg-amber-100 border-4 border-rose-800 rounded-xl mr-2 ">
                     <img
