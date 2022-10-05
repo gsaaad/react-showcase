@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 const FlightAway = () => {
-  const [flights, setFlights] = useState([]);
-  const [randomNumber, setRandomNumber] = useState(0);
+  const [CADflights, setCADFlights] = useState([]);
 
   async function getCADFlights() {
     const options = {
@@ -34,7 +33,7 @@ const FlightAway = () => {
       })
       .then((flightData) => {
         console.log("adding to flights");
-        setFlights(flightData);
+        setCADFlights(flightData);
       });
   }
 
@@ -96,7 +95,13 @@ const FlightAway = () => {
     e.preventDefault();
     getCADFlights();
   };
-  const limitFlights = flights;
+  const limitCADFlights = !CADflights
+    ? []
+    : CADflights.length > 15
+    ? CADflights.slice(0, 15)
+    : CADflights;
+
+  console.log(limitCADFlights.length, "CAD Flights length");
 
   return (
     <div className="bg-amber-800 rounded-xl">
@@ -105,25 +110,39 @@ const FlightAway = () => {
       </button>
       <div style={componentStyle}>
         <div className="grid">
-          <div className="grid grid-cols-1 border-2 border-amber-300 w-5/6 mx-auto rounded-lg my-2">
+          <div className="grid grid-cols-1 border-2 border-amber-300 w-11/12 mx-auto rounded-lg my-2">
+            <h1 className="text-xl text-white font-bold my-2">
+              Click the CAD Button to receive 15 cheap flights from Toronto YYZ
+              to potential flights within Canada!
+            </h1>
             <button
-              className="bg-gradient-to-r from-violet-500 to-sky-400 rounded-lg w-max p-2 mx-auto text-white font-semibold my-2 border-b-2 border-sky-400"
+              className="bg-gradient-to-r from-violet-500 to-sky-400 rounded-lg w-max p-2 mx-auto text-white font-semibold my-6 border-b-2 border-sky-400 drop-shadow-[0_10px_10px_rgba(255,255,255,0.4)] lg:text-4xl "
               onClick={handleCADFlights}
             >
               CAD Flights
             </button>
             <div className="flex text-amber-400 ">
-              <p className="basis-1/4 mx-2">Cost</p>
-              <p className="basis-1/4 mx-2">Departure Date</p>
-              <p className="basis-1/4 mx-2">Destination</p>
-              <p className="basis-1/4 mx-2">Days Left</p>
+              <p className="basis-1/4 mx-2 lg:text-2xl lg:font-semibold xl:text-3xl">
+                Cost
+              </p>
+              <p className="basis-1/4 mx-2 lg:text-2xl lg:font-semibold xl:text-3xl">
+                Departure Date
+              </p>
+              <p className="basis-1/4 mx-2 lg:text-2xl lg:font-semibold xl:text-3xl">
+                Destination
+              </p>
+              <p className="basis-1/4 mx-2 lg:text-2xl lg:font-semibold xl:text-3xl">
+                Days Left
+              </p>
             </div>
-            {limitFlights.map((flight) => {
+            {limitCADFlights.map((flight) => {
               const flightDateArray = flight.outboundDepartureDate.split("-");
               const flightDay = flightDateArray[2];
               const flightMonth = flightDateArray[1];
               const flightYear = flightDateArray[0];
+              const lastYY = flightYear.slice(2);
               const flightDate = `${flightMonth}/${flightDay}/${flightYear}`;
+              const dateFormat = `${flightMonth}/${flightDay}/${lastYY}`;
               const dateOne = new Date(flightDate);
               const dateTwo = new Date(dateToday);
               const diff = dateOne.getTime() - dateTwo.getTime();
@@ -131,16 +150,22 @@ const FlightAway = () => {
 
               return (
                 <div
-                  className="border-b-2 border-amber-300 w-5/6 mx-auto rounded bg-slate-200 my-2"
+                  className="border-b-4 border-sky-400 w-5/6 mx-auto rounded bg-slate-100 my-2 md:p-4 md:rounded-lg"
                   key={flight.title}
                 >
                   <p className="flex w-full">
-                    <span className="basis-1/4 mx-auto">${flight.price}</span>
-                    <span className="basis-1/4 mx-auto">
-                      {flight.outboundDepartureDate}
+                    <span className="basis-1/4 mx-auto font-semibold  lg:text-2xl xl:text-3xl">
+                      ${flight.price}
                     </span>
-                    <span className="basis-1/4 mx-auto">{flight.title}</span>
-                    <span className="basis-1/4 mx-auto">{daysLeft}</span>
+                    <span className="basis-1/4 mx-auto font-semibold lg:text-2xl  xl:text-3xl">
+                      {dateFormat}
+                    </span>
+                    <span className="basis-1/4 mx-auto font-semibold  lg:text-2xl xl:text-3xl">
+                      {flight.title}
+                    </span>
+                    <span className="basis-1/4 mx-auto font-semibold lg:text-2xl  xl:text-3xl">
+                      {daysLeft}
+                    </span>
                   </p>
                 </div>
               );
@@ -156,33 +181,6 @@ const FlightAway = () => {
               <p className="basis-1/4 mx-2">Destination</p>
               <p className="basis-1/4 mx-2">Days Left</p>
             </div>
-            {/* {limitFlights.map((flight) => {
-              const flightDateArray = flight.outboundDepartureDate.split("-");
-              const flightDay = flightDateArray[2];
-              const flightMonth = flightDateArray[1];
-              const flightYear = flightDateArray[0];
-              const flightDate = `${flightMonth}/${flightDay}/${flightYear}`;
-              const dateOne = new Date(flightDate);
-              const dateTwo = new Date(dateToday);
-              const diff = dateOne.getTime() - dateTwo.getTime();
-              const daysLeft = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-              return (
-                <div
-                  className="border-b-2 border-amber-300 w-5/6 mx-auto rounded bg-slate-200 my-2"
-                  key={flight.title}
-                >
-                  <p className="flex w-full">
-                    <span className="basis-1/4 mx-auto">${flight.price}</span>
-                    <span className="basis-1/4 mx-auto">
-                      {flight.outboundDepartureDate}
-                    </span>
-                    <span className="basis-1/4 mx-auto">{flight.title}</span>
-                    <span className="basis-1/4 mx-auto">{daysLeft}</span>
-                  </p>
-                </div>
-              );
-            })} */}
           </div>
         </div>
       </div>
@@ -190,3 +188,7 @@ const FlightAway = () => {
   );
 };
 export default FlightAway;
+
+<button className="bg-gradient-to-r from-red-600 to-yellow-400 rounded-lg w-max p-2 mx-auto text-white font-semibold my-2 border-b-2 border-amber-400">
+  USA Flights
+</button>;
