@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import FLIGHTS from "../../data.json";
 const FlightAway = () => {
-  async function getHomeFlights() {
-    // console.log(
-    //   typeof process.env.REACT_APP_HOST,
-    //   typeof process.env.REACT_APP_KEY
-    // );
+  const [flights, setFlights] = useState([]);
+  const [randomNumber, setRandomNumber] = useState(0);
 
+  async function getCADFlights() {
     const options = {
       method: "GET",
       url: "https://skyscanner50.p.rapidapi.com/api/v1/searchFlightEverywhereDetails",
@@ -25,18 +22,22 @@ const FlightAway = () => {
         "X-RapidAPI-Host": process.env.REACT_APP_HOST,
       },
     };
-    // console.log(options);
-    // !gets all flights in canada
-    // todo retrieve the price, destination name, airport, direct means one way or not, and departureDate
-    // try {
-    //   const response = await axios.request(options).then(function (response) {
-    //     console.log(response.data);
-    //   });
-    //   console.log(response);
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    await axios
+      .request(options)
+      .then(function (responseBack) {
+        if (!responseBack) {
+          console.log("There was no response.. Try Again later!");
+        }
+        const responseData = [responseBack.data.data];
+        console.log("response DATA", responseData[0]);
+        return responseData[0];
+      })
+      .then((flightData) => {
+        console.log("adding to flights");
+        setFlights(flightData);
+      });
   }
+
   async function getUSAFlights() {
     // console.log(
     //   typeof process.env.REACT_APP_HOST,
@@ -63,17 +64,16 @@ const FlightAway = () => {
     // console.log(options);
     // !gets all flights in canada
     // todo retrieve the price, destination name, airport, direct means one way or not, and departureDate
-    // try {
-    //   const response = await axios.request(options).then(function (response) {
-    //     console.log(response.data);
-    //   });
-    //   console.log(response[data]);
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      const response = await axios.request(options).then(function (response) {
+        console.log(response.data);
+      });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
   }
-  //   getHomeFlights();
-  //   getUSAFlights();
+
   const date = new Date();
   const day = date.getDate();
   const month = date.getMonth() + 1;
@@ -92,8 +92,11 @@ const FlightAway = () => {
       setComponentStyle({ display: "none" });
     }
   };
-
-  const limitFlights = FLIGHTS.length > 15 ? FLIGHTS.slice(0, 15) : FLIGHTS;
+  const handleCADFlights = (e) => {
+    e.preventDefault();
+    getCADFlights();
+  };
+  const limitFlights = flights;
 
   return (
     <div className="bg-amber-800 rounded-xl">
@@ -103,7 +106,10 @@ const FlightAway = () => {
       <div style={componentStyle}>
         <div className="grid">
           <div className="grid grid-cols-1 border-2 border-amber-300 w-5/6 mx-auto rounded-lg my-2">
-            <button className="bg-gradient-to-r from-violet-500 to-sky-400 rounded-lg w-max p-2 mx-auto text-white font-semibold my-2 border-b-2 border-sky-400">
+            <button
+              className="bg-gradient-to-r from-violet-500 to-sky-400 rounded-lg w-max p-2 mx-auto text-white font-semibold my-2 border-b-2 border-sky-400"
+              onClick={handleCADFlights}
+            >
               CAD Flights
             </button>
             <div className="flex text-amber-400 ">
@@ -150,7 +156,7 @@ const FlightAway = () => {
               <p className="basis-1/4 mx-2">Destination</p>
               <p className="basis-1/4 mx-2">Days Left</p>
             </div>
-            {limitFlights.map((flight) => {
+            {/* {limitFlights.map((flight) => {
               const flightDateArray = flight.outboundDepartureDate.split("-");
               const flightDay = flightDateArray[2];
               const flightMonth = flightDateArray[1];
@@ -176,12 +182,11 @@ const FlightAway = () => {
                   </p>
                 </div>
               );
-            })}
+            })} */}
           </div>
         </div>
       </div>
     </div>
   );
 };
-
 export default FlightAway;
