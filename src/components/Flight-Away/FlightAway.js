@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 const FlightAway = () => {
   const [CADflights, setCADFlights] = useState([]);
+  const [USAflights, setUSAFlights] = useState([]);
 
   async function getCADFlights() {
     const options = {
@@ -38,11 +39,6 @@ const FlightAway = () => {
   }
 
   async function getUSAFlights() {
-    // console.log(
-    //   typeof process.env.REACT_APP_HOST,
-    //   typeof process.env.REACT_APP_KEY
-    // );
-
     const options = {
       method: "GET",
       url: "https://skyscanner50.p.rapidapi.com/api/v1/searchFlightEverywhereDetails",
@@ -61,13 +57,20 @@ const FlightAway = () => {
       },
     };
     // console.log(options);
-    // !gets all flights in canada
-    // todo retrieve the price, destination name, airport, direct means one way or not, and departureDate
+    // !gets all flights in USA
     try {
-      const response = await axios.request(options).then(function (response) {
-        console.log(response.data);
-      });
-      return response.data;
+      await axios
+        .request(options)
+        .then(function (responseBack) {
+          if (!responseBack) {
+            console.log("There was no response.. Try Again later!");
+          }
+          const responseData = [responseBack.data.data];
+          return responseData[0];
+        })
+        .then((flightData) => {
+          setUSAFlights(flightData);
+        });
     } catch (error) {
       console.error(error);
     }
@@ -95,13 +98,24 @@ const FlightAway = () => {
     e.preventDefault();
     getCADFlights();
   };
+  const handleUSAFlights = (e) => {
+    e.preventDefault();
+    getUSAFlights();
+  };
+
   const limitCADFlights = !CADflights
     ? []
     : CADflights.length > 15
     ? CADflights.slice(0, 15)
     : CADflights;
+  const limitUSAFlights = !USAflights
+    ? []
+    : USAflights.length > 15
+    ? USAflights.slice(0, 15)
+    : USAflights;
 
   console.log(limitCADFlights.length, "CAD Flights length");
+  console.log(limitUSAFlights.length, "USA Flights length");
 
   return (
     <div className="bg-amber-800 rounded-xl">
@@ -150,7 +164,7 @@ const FlightAway = () => {
 
               return (
                 <div
-                  className="border-b-4 border-sky-400 w-5/6 mx-auto rounded bg-slate-100 my-2 md:p-4 md:rounded-lg"
+                  className="border-b-4 border-sky-400 w-5/6 mx-auto rounded bg-slate-100 my-2 md:p-4 md:rounded-lg drop-shadow-[0_10px_10px_rgba(100,255,0,0.5)"
                   key={flight.title}
                 >
                   <p className="flex w-full">
@@ -171,16 +185,69 @@ const FlightAway = () => {
               );
             })}
           </div>
-          <div className="grid grid-cols-1 border-2 border-amber-300 w-5/6 mx-auto rounded-lg my-2">
-            <button className="bg-gradient-to-r from-red-600 to-yellow-400 rounded-lg w-max p-2 mx-auto text-white font-semibold my-2 border-b-2 border-amber-400">
+
+          {/* bottom portion USA */}
+          <div className="grid grid-cols-1 border-2 border-amber-300 w-11/12 mx-auto rounded-lg my-2">
+            <h1 className="text-xl text-white font-bold my-2">
+              Click the USA Button to receive 15 cheap flights from Buffalo BUF
+              to potential flights within USA!
+            </h1>
+            <button
+              className="bg-gradient-to-r from-red-600 to-yellow-400 rounded-lg w-max p-2 mx-auto text-white font-semibold my-2 border-b-2 border-amber-400 drop-shadow-[0_10px_10px_rgba(255,255,255,0.6)]"
+              onClick={handleUSAFlights}
+            >
               USA Flights
             </button>
+            ;
             <div className="flex text-amber-400 ">
-              <p className="basis-1/4 mx-2">Cost</p>
-              <p className="basis-1/4 mx-2">Departure Date</p>
-              <p className="basis-1/4 mx-2">Destination</p>
-              <p className="basis-1/4 mx-2">Days Left</p>
+              <p className="basis-1/4 mx-2 lg:text-2xl lg:font-semibold xl:text-3xl">
+                Cost
+              </p>
+              <p className="basis-1/4 mx-2 lg:text-2xl lg:font-semibold xl:text-3xl">
+                Departure Date
+              </p>
+              <p className="basis-1/4 mx-2 lg:text-2xl lg:font-semibold xl:text-3xl">
+                Destination
+              </p>
+              <p className="basis-1/4 mx-2 lg:text-2xl lg:font-semibold xl:text-3xl">
+                Days Left
+              </p>
             </div>
+            {limitUSAFlights.map((flight) => {
+              const flightDateArray = flight.outboundDepartureDate.split("-");
+              const flightDay = flightDateArray[2];
+              const flightMonth = flightDateArray[1];
+              const flightYear = flightDateArray[0];
+              const lastYY = flightYear.slice(2);
+              const flightDate = `${flightMonth}/${flightDay}/${flightYear}`;
+              const dateFormat = `${flightMonth}/${flightDay}/${lastYY}`;
+              const dateOne = new Date(flightDate);
+              const dateTwo = new Date(dateToday);
+              const diff = dateOne.getTime() - dateTwo.getTime();
+              const daysLeft = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+              return (
+                <div
+                  className="border-b-4 border-sky-400 w-5/6 mx-auto rounded bg-slate-100 my-2 md:p-4 md:rounded-lg drop-shadow-[0_10px_10px_rgba(255,100,0,0.5)]"
+                  key={flight.title}
+                >
+                  <p className="flex w-full">
+                    <span className="basis-1/4 mx-auto font-semibold  lg:text-2xl xl:text-3xl">
+                      ${flight.price}
+                    </span>
+                    <span className="basis-1/4 mx-auto font-semibold lg:text-2xl  xl:text-3xl">
+                      {dateFormat}
+                    </span>
+                    <span className="basis-1/4 mx-auto font-semibold  lg:text-2xl xl:text-3xl">
+                      {flight.title}
+                    </span>
+                    <span className="basis-1/4 mx-auto font-semibold lg:text-2xl  xl:text-3xl">
+                      {daysLeft}
+                    </span>
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -188,7 +255,3 @@ const FlightAway = () => {
   );
 };
 export default FlightAway;
-
-<button className="bg-gradient-to-r from-red-600 to-yellow-400 rounded-lg w-max p-2 mx-auto text-white font-semibold my-2 border-b-2 border-amber-400">
-  USA Flights
-</button>;
